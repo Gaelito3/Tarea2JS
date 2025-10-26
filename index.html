@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio - Funciones JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+
+        .exercises-panel {
+            background: #f8f9fa;
+            padding: 25px;
+            border-right: 2px solid #e9ecef;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+
+        .results-panel {
+            padding: 25px;
+            background: white;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+
+        .exercise-group {
+            margin-bottom: 25px;
+        }
+
+        .exercise-group h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .exercise-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .exercise-btn:hover {
+            background: #2980b9;
+            transform: translateX(5px);
+        }
+
+        .exercise-btn:active {
+            transform: scale(0.98);
+        }
+
+        .results-container {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 3px solid #27ae60;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .error {
+            border-left-color: #e74c3c;
+            background: #ffeaea;
+        }
+
+        .success {
+            border-left-color: #27ae60;
+            background: #eaffea;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        footer {
+            background: #34495e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .exercises-panel {
+                border-right: none;
+                border-bottom: 2px solid #e9ecef;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧪 Laboratorio - Funciones JavaScript</h1>
+            <div class="subtitle">15 ejercicios de funciones, callbacks y manejo de arreglos</div>
+        </header>
+
+        <div class="content">
+            <!-- Panel de ejercicios -->
+            <div class="exercises-panel">
+                <div class="exercise-group">
+                    <h3>📌 Ejercicios 1-5: Funciones Básicas</h3>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio1()">1. Función Promedio (4 versiones)</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio2()">2. Evaluar Número (Positivo/Negativo/Cero)</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio3()">3. Función Operar con Callbacks</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio4()">4. Calcular Total con Callback</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio5()">5. Mostrar Resultado con Función Interna</button>
+                </div>
+
+                <div class="exercise-group">
+                    <h3>📊 Ejercicios 6-10: Arreglos Básicos</h3>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio6()">6. Suma de Números Positivos</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio7()">7. Menor y Mayor Número</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio8()">8. Arreglo Invertido</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio9()">9. Contar Múltiplos</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio10()">10. Pares Elevados al Cuadrado</button>
+                </div>
+
+                <div class="exercise-group">
+                    <h3>🔍 Ejercicios 11-15: Arreglos Avanzados</h3>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio11()">11. Contar Valores Únicos</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio12()">12. Unión, Intersección y Diferencia</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio13()">13. Elementos que Aparecen Una Vez</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio14()">14. Diferencia Simétrica</button>
+                    <button class="exercise-btn" onclick="ejecutarEjercicio15()">15. Detector de Subconjunto</button>
+                </div>
+
+                <div class="exercise-group">
+                    <h3>🚀 Acciones Globales</h3>
+                    <button class="exercise-btn" onclick="ejecutarTodos()" style="background: #e74c3c;">Ejecutar TODOS los Ejercicios</button>
+                    <button class="exercise-btn" onclick="limpiarResultados()" style="background: #95a5a6;">Limpiar Resultados</button>
+                </div>
+            </div>
+
+            <!-- Panel de resultados -->
+            <div class="results-panel">
+                <h2>📋 Resultados de los Ejercicios</h2>
+                <div class="results-container" id="resultsContainer">
+                    <div class="result-item success">
+                        ¡Haz clic en cualquier ejercicio para ver los resultados aquí!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>👨‍💻 Autor: Gael Alexander Huamaní Machaca | 🕒 Tiempo: 1.5 h | 📅 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // =============================================
+        // FUNCIONES DE LOS EJERCICIOS
+        // =============================================
+
+        // Ejercicio 1: 4 versiones de función promedio
+        function promedioDeclarado(a, b, c) {
+            return (a + b + c) / 3;
+        }
+
+        const promedioExpresado = function(a, b, c) {
+            return (a + b + c) / 3;
+        };
+
+        const promedioFlechaBloque = (a, b, c) => {
+            return (a + b + c) / 3;
+        };
+
+        const promedioFlechaSimple = (a, b, c) => (a + b + c) / 3;
+
+        // Ejercicio 2: Función flecha evaluarNumero
+        const evaluarNumero = (numero) => {
+            if (numero > 0) return "El número es positivo";
+            else if (numero < 0) return "El número es negativo";
+            else return "El número es cero";
+        };
+
+        // Ejercicio 3: Funciones para operar
+        const sumar = (a, b) => a + b;
+        const restar = (a, b) => a - b;
+        const multiplicar = (a, b) => a * b;
+        const dividir = (a, b) => b !== 0 ? a / b : "Error: División por cero";
+        const modulo = (a, b) => b !== 0 ? a % b : "Error: División por cero";
+        const potencia = (a, b) => Math.pow(a, b);
+
+        const operar = (a, b, operacion) => operacion(a, b);
+
+        // Ejercicio 4: Función calcularTotal con callback
+        const calcularTotal = (precio1, precio2, callback) => {
+            const total = precio1 + precio2;
+            callback(total);
+        };
+
+        // Ejercicio 5: Función mostrarResultado con función interna
+        function mostrarResultado(numero) {
+            function calcularDoble(x) {
+                return x * 2;
+            }
+            const resultado = calcularDoble(numero);
+            return `El doble de ${numero} es ${resultado}`;
+        }
+
+        // Ejercicio 6: Suma de números positivos
+        const sumaPositivos = (numeros) => {
+            return numeros.reduce((suma, numero) => numero > 0 ? suma + numero : suma, 0);
+        };
+
+        // Ejercicio 7: Menor y mayor número
+        const menorYMayor = (arreglo) => {
+            if (arreglo.length === 0) return [];
+            return [Math.min(...arreglo), Math.max(...arreglo)];
+        };
+
+        // Ejercicio 8: Arreglo invertido
+        const invertirArreglo = (arreglo) => [...arreglo].reverse();
+
+        // Ejercicio 9: Contar múltiplos
+        const contarMultiplos = (arreglo, divisor) => {
+            return arreglo.filter(numero => numero % divisor === 0).length;
+        };
+
+        // Ejercicio 10: Pares al cuadrado
+        const paresAlCuadrado = (numeros) => {
+            return numeros.filter(numero => numero % 2 === 0).map(numero => numero * numero);
+        };
+
+        // Ejercicio 11: Contar valores únicos
+        const contarUnicos = (arreglo) => new Set(arreglo).size;
+
+        // Ejercicio 12: Operaciones con conjuntos
+        const operacionesConjuntos = (arr1, arr2) => {
+            const conjunto1 = new Set(arr1);
+            const conjunto2 = new Set(arr2);
+            
+            const union = [...new Set([...arr1, ...arr2])];
+            const interseccion = [...arr1].filter(elemento => conjunto2.has(elemento));
+            const diferencia = [...arr1].filter(elemento => !conjunto2.has(elemento));
+            
+            return { union, interseccion, diferencia };
+        };
+
+        // Ejercicio 13: Elementos únicos
+        const soloUnaVez = (arr) => {
+            const frecuencia = {};
+            arr.forEach(elemento => {
+                frecuencia[elemento] = (frecuencia[elemento] || 0) + 1;
+            });
+            return arr.filter(elemento => frecuencia[elemento] === 1);
+        };
+
+        // Ejercicio 14: Diferencia simétrica
+        const diferenciaSimetrica = (a, b) => {
+            const conjuntoA = new Set(a);
+            const conjuntoB = new Set(b);
+            const soloEnA = [...a].filter(x => !conjuntoB.has(x));
+            const soloEnB = [...b].filter(x => !conjuntoA.has(x));
+            return [...soloEnA, ...soloEnB];
+        };
+
+        // Ejercicio 15: Detector de subconjunto
+        const esSubconjunto = (a, b) => {
+            const conjuntoB = new Set(b);
+            return a.every(elemento => conjuntoB.has(elemento));
+        };
+
+        // =============================================
+        // FUNCIONES DE EJECUCIÓN Y VISUALIZACIÓN
+        // =============================================
+
+        function mostrarResultadoEnHTML(mensaje, tipo = 'success') {
+            const container = document.getElementById('resultsContainer');
+            const resultadoDiv = document.createElement('div');
+            resultadoDiv.className = `result-item ${tipo}`;
+            resultadoDiv.innerHTML = mensaje;
+            container.appendChild(resultadoDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function limpiarResultados() {
+            document.getElementById('resultsContainer').innerHTML = '';
+        }
+
+        // Funciones de ejecución para cada ejercicio
+        function ejecutarEjercicio1() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 1: 4 versiones de función promedio</strong>');
+            mostrarResultadoEnHTML(`Promedio declarado (2,4,6): ${promedioDeclarado(2, 4, 6)}`);
+            mostrarResultadoEnHTML(`Promedio expresado (1,3,5): ${promedioExpresado(1, 3, 5)}`);
+            mostrarResultadoEnHTML(`Promedio flecha bloque (10,20,30): ${promedioFlechaBloque(10, 20, 30)}`);
+            mostrarResultadoEnHTML(`Promedio flecha simple (5,10,15): ${promedioFlechaSimple(5, 10, 15)}`);
+        }
+
+        function ejecutarEjercicio2() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 2: Evaluar número</strong>');
+            mostrarResultadoEnHTML(`Evaluar 5: ${evaluarNumero(5)}`);
+            mostrarResultadoEnHTML(`Evaluar -3: ${evaluarNumero(-3)}`);
+            mostrarResultadoEnHTML(`Evaluar 0: ${evaluarNumero(0)}`);
+        }
+
+        function ejecutarEjercicio3() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 3: Función operar con callbacks</strong>');
+            mostrarResultadoEnHTML(`Suma (5,3): ${operar(5, 3, sumar)}`);
+            mostrarResultadoEnHTML(`Resta (8,3): ${operar(8, 3, restar)}`);
+            mostrarResultadoEnHTML(`Multiplicación (4,5): ${operar(4, 5, multiplicar)}`);
+            mostrarResultadoEnHTML(`División (10,2): ${operar(10, 2, dividir)}`);
+            mostrarResultadoEnHTML(`División por cero (10,0): ${operar(10, 0, dividir)}`);
+            mostrarResultadoEnHTML(`Potencia (2,3): ${operar(2, 3, potencia)}`);
+        }
+
+        function ejecutarEjercicio4() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 4: Calcular total con callback</strong>');
+            calcularTotal(25, 35, (total) => {
+                mostrarResultadoEnHTML(`Callback ejecutado - Total: ${total}`);
+            });
+        }
+
+        function ejecutarEjercicio5() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 5: Mostrar resultado con función interna</strong>');
+            mostrarResultadoEnHTML(mostrarResultado(8));
+            mostrarResultadoEnHTML(mostrarResultado(15));
+        }
+
+        function ejecutarEjercicio6() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 6: Suma de números positivos</strong>');
+            const numeros = [1, -2, 3, -4, 5, 0, -6, 7];
+            mostrarResultadoEnHTML(`Arreglo: [${numeros.join(', ')}]`);
+            mostrarResultadoEnHTML(`Suma de positivos: ${sumaPositivos(numeros)}`);
+        }
+
+        function ejecutarEjercicio7() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 7: Menor y mayor número</strong>');
+            const numeros = [5, -2, 8, 1, -5, 10, 3];
+            mostrarResultadoEnHTML(`Arreglo: [${numeros.join(', ')}]`);
+            mostrarResultadoEnHTML(`Menor y mayor: [${menorYMayor(numeros).join(', ')}]`);
+        }
+
+        function ejecutarEjercicio8() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 8: Arreglo invertido</strong>');
+            const original = [1, 2, 3, 4, 5];
+            mostrarResultadoEnHTML(`Original: [${original.join(', ')}]`);
+            mostrarResultadoEnHTML(`Invertido: [${invertirArreglo(original).join(', ')}]`);
+        }
+
+        function ejecutarEjercicio9() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 9: Contar múltiplos</strong>');
+            const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            mostrarResultadoEnHTML(`Arreglo: [${numeros.join(', ')}]`);
+            mostrarResultadoEnHTML(`Múltiplos de 2: ${contarMultiplos(numeros, 2)}`);
+            mostrarResultadoEnHTML(`Múltiplos de 3: ${contarMultiplos(numeros, 3)}`);
+        }
+
+        function ejecutarEjercicio10() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 10: Pares elevados al cuadrado</strong>');
+            const numeros = [1, 2, 3, 4, 5, 6, 7, 8];
+            mostrarResultadoEnHTML(`Original: [${numeros.join(', ')}]`);
+            mostrarResultadoEnHTML(`Pares al cuadrado: [${paresAlCuadrado(numeros).join(', ')}]`);
+        }
+
+        function ejecutarEjercicio11() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 11: Contar valores únicos</strong>');
+            const numeros = [1, 2, 2, 3, 4, 4, 4, 5, 6];
+            const letras = ['a', 'b', 'a', 'c', 'b', 'd'];
+            mostrarResultadoEnHTML(`Arreglo números: [${numeros.join(', ')}] → Únicos: ${contarUnicos(numeros)}`);
+            mostrarResultadoEnHTML(`Arreglo letras: [${letras.join(', ')}] → Únicos: ${contarUnicos(letras)}`);
+        }
+
+        function ejecutarEjercicio12() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 12: Unión, intersección y diferencia</strong>');
+            const arr1 = [1, 2, 3, 'a', 'b'];
+            const arr2 = [2, 3, 4, 'b', 'c'];
+            const resultado = operacionesConjuntos(arr1, arr2);
+            mostrarResultadoEnHTML(`Conjunto A: [${arr1.join(', ')}]`);
+            mostrarResultadoEnHTML(`Conjunto B: [${arr2.join(', ')}]`);
+            mostrarResultadoEnHTML(`Unión: [${resultado.union.join(', ')}]`);
+            mostrarResultadoEnHTML(`Intersección: [${resultado.interseccion.join(', ')}]`);
+            mostrarResultadoEnHTML(`Diferencia (A - B): [${resultado.diferencia.join(', ')}]`);
+        }
+
+        function ejecutarEjercicio13() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 13: Elementos que aparecen una vez</strong>');
+            const numeros = [1, 2, 2, 3, 4, 4, 5, 6, 6, 7];
+            mostrarResultadoEnHTML(`Original: [${numeros.join(', ')}]`);
+            mostrarResultadoEnHTML(`Únicos: [${soloUnaVez(numeros).join(', ')}]`);
+        }
+
+        function ejecutarEjercicio14() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 14: Diferencia simétrica</strong>');
+            const a = [1, 2, 3, 4];
+            const b = [3, 4, 5, 6];
+            mostrarResultadoEnHTML(`Conjunto A: [${a.join(', ')}]`);
+            mostrarResultadoEnHTML(`Conjunto B: [${b.join(', ')}]`);
+            mostrarResultadoEnHTML(`Diferencia simétrica: [${diferenciaSimetrica(a, b).join(', ')}]`);
+        }
+
+        function ejecutarEjercicio15() {
+            mostrarResultadoEnHTML('<strong>Ejercicio 15: Detector de subconjunto</strong>');
+            const a = [1, 2, 3];
+            const b = [1, 2, 3, 4, 5];
+            const c = [1, 5];
+            mostrarResultadoEnHTML(`¿[${a.join(', ')}] ⊆ [${b.join(', ')}]? ${esSubconjunto(a, b)}`);
+            mostrarResultadoEnHTML(`¿[${c.join(', ')}] ⊆ [${b.join(', ')}]? ${esSubconjunto(c, b)}`);
+        }
+
+        function ejecutarTodos() {
+            limpiarResultados();
+            mostrarResultadoEnHTML('<strong>🚀 EJECUTANDO TODOS LOS EJERCICIOS...</strong>', 'success');
+            
+            // Ejecutar todos los ejercicios en orden
+            setTimeout(() => ejecutarEjercicio1(), 100);
+            setTimeout(() => ejecutarEjercicio2(), 300);
+            setTimeout(() => ejecutarEjercicio3(), 500);
+            setTimeout(() => ejecutarEjercicio4(), 700);
+            setTimeout(() => ejecutarEjercicio5(), 900);
+            setTimeout(() => ejecutarEjercicio6(), 1100);
+            setTimeout(() => ejecutarEjercicio7(), 1300);
+            setTimeout(() => ejecutarEjercicio8(), 1500);
+            setTimeout(() => ejecutarEjercicio9(), 1700);
+            setTimeout(() => ejecutarEjercicio10(), 1900);
+            setTimeout(() => ejecutarEjercicio11(), 2100);
+            setTimeout(() => ejecutarEjercicio12(), 2300);
+            setTimeout(() => ejecutarEjercicio13(), 2500);
+            setTimeout(() => ejecutarEjercicio14(), 2700);
+            setTimeout(() => ejecutarEjercicio15(), 2900);
+            setTimeout(() => {
+                mostrarResultadoEnHTML('<strong>✅ TODOS LOS EJERCICIOS COMPLETADOS</strong>', 'success');
+            }, 3100);
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            mostrarResultadoEnHTML('¡Bienvenido! Haz clic en cualquier ejercicio para ejecutarlo.', 'success');
+        });
+    </script>
+</body>
+</html>

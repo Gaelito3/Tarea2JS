@@ -1,0 +1,12 @@
+{
+  "name": "laboratorio-funciones-javascript",
+  "version": "1.0.0",
+  "description": "Soluciones de los 15 ejercicios de funciones JavaScript",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "node main.js"
+  },
+  "author": "Tu nombre",
+  "license": "MIT"
+}
